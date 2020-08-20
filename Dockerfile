@@ -24,7 +24,8 @@ RUN pip install requests
 COPY --from=build /models/ /root/.torch/models
 RUN mkdir -p /data/models
 RUN mv /root/.torch/models/ColorizeArtistic_gen.pth /data/models/ColorizeArtistic_gen.pth
+
 ADD . /data/
 EXPOSE 80
-ENTRYPOINT ["python3"]
-CMD ["app.py"]
+
+CMD ["python3", "app.py"]

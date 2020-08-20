@@ -40,20 +40,14 @@ def process_image():
 
     try:
         url = request.json["source_url"]
-        render_factor = 35 #int(request.json["render_factor"])
+        # render_factor = 35 #int(request.json["render_factor"])
 
         download(url, input_path)
-        
-        try:
-            image_colorizer.plot_transformed_image(path=input_path, figsize=(20,20),
-            render_factor=render_factor, display_render_factor=True, compare=False)
-        except:
-            convertToJPG(input_path)
-            image_colorizer.plot_transformed_image(path=input_path, figsize=(20,20),
-            render_factor=render_factor, display_render_factor=True, compare=False)
+
+        run(input_path)
 
         callback = send_file(output_path, mimetype='image/jpeg')
-        
+    
         return callback, 200
 
     except DownloadPrecheckFailed as e:
@@ -68,6 +62,36 @@ def process_image():
             input_path,
             output_path
             ])
+
+@app.route("/process-img-form", methods=["POST"])
+def processToForm():
+    input_path = generate_random_filename(upload_directory,"jpeg")
+    output_path = os.path.join(results_img_directory, os.path.basename(input_path))
+
+    image = request.files['image']
+
+    image.save(input_path)
+
+    run(input_path)
+
+    callback = send_file(output_path, mimetype='image/jpeg')
+    
+    return callback, 200
+
+
+def run(input_path):
+    render_factor = 35
+
+    try:
+        image_colorizer.plot_transformed_image(path=input_path, figsize=(20,20),
+        render_factor=render_factor, display_render_factor=True, compare=False)
+    except:
+        convertToJPG(input_path)
+        image_colorizer.plot_transformed_image(path=input_path, figsize=(20,20),
+        render_factor=render_factor, display_render_factor=True, compare=False)
+
+    return True
+    
 
 @app.route('/health')
 def health():
