@@ -117,7 +117,7 @@ if __name__ == '__main__':
     #create_directory(model_directory)
 
     stable_model_url = 'https://www.dropbox.com/s/mwjep3vyqk5mkjc/ColorizeStable_gen.pth?dl=0'
-    get_model_bin(stable_model_url, os.path.join(model_directory, 'ColorizeArtistic_gen.pth'))
+    get_model_bin(stable_model_url, os.path.join(model_directory, 'ColorizeStable_gen.pth'))
 
     image_colorizer = get_image_colorizer(artistic=False)
 
