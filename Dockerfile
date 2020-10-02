@@ -23,7 +23,7 @@ RUN pip install requests
 
 COPY --from=build /models/ /root/.torch/models
 RUN mkdir -p /data/models
-RUN mv /root/.torch/models/ColorizeStable_gen.pth /data/models/ColorizeStable_gen.pth
+#RUN mv /root/.torch/models/ColorizeStable_gen.pth /data/models/ColorizeStable_gen.pth
 #RUN wget -O /root/.torch/models/resnet101-5d3b4d8f.pth https://download.pytorch.org/models/resnet101-5d3b4d8f.pth
 #wget -O /data/models/ColorizeStable_gen.pth https://www.dropbox.com/s/mwjep3vyqk5mkjc/ColorizeStable_gen.pth?dl=0
 
